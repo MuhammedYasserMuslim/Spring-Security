@@ -5,12 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class Mail {
 
-    private String subject;
     private String to;
-    private String text;
+    private String verifyCode;
 
+    public Mail(String to) {
+        this.to = to;
+    }
 }

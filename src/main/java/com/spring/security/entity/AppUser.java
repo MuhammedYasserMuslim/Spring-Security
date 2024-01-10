@@ -24,11 +24,15 @@ public class AppUser {
     private String password;
     @Column(name = "is_active")
     private int isActive;
+    @Column(name = "is_verify")
+    private int isVerify;
 
 
     private String firstName;
     private String lastName;
     private String email;
+
+    private String verifyCode;
 
 
     @JoinTable(

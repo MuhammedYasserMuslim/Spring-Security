@@ -49,7 +49,7 @@ public class AppUserDetail implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return user.getIsVerify() == 1;
     }
 
     @Override

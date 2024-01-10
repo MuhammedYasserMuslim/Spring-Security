@@ -12,14 +12,17 @@ public class MailServices {
 
 
     private final JavaMailSender javaMailSender;
+    String random = String.valueOf(Math.random() * 100000).substring(0, 5);
 
-    public void sendMail(Mail mail) {
+    public void sendMail(Mail mail) {        mail.setVerifyCode(random);
+
         SimpleMailMessage massage = new SimpleMailMessage();
         massage.setFrom("mohamedyasser2001898@gmail.com");
-        massage.setSubject(mail.getSubject());
+        massage.setSubject("Verify your account");
         massage.setTo(mail.getTo());
-        massage.setText(mail.getText());
+        massage.setText("your verify code is " + random);
         javaMailSender.send(massage);
     }
+
 
 }

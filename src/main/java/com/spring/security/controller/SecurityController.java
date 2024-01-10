@@ -8,10 +8,7 @@ import com.spring.security.services.UserServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/")
@@ -25,6 +22,7 @@ public class SecurityController {
     public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) throws Exception {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
+
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody AppUser user) {
         for (AppUser users : userServices.findAll()) {
@@ -36,4 +34,24 @@ public class SecurityController {
         userServices.save(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @PostMapping("/verify")
+    public ResponseEntity<?> verify(@RequestParam String verify, @RequestParam Long id) {
+        userServices.verify(verify, id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/active")
+    public ResponseEntity<?> active(@RequestParam Long id) {
+        userServices.activeAccount(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/unactive")
+    public ResponseEntity<?> nonActive(@RequestParam Long id) {
+        userServices.unActive(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 }
