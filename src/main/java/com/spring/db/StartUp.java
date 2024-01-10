@@ -1,10 +1,13 @@
 package com.spring.db;
 
+import com.spring.security.dto.Mail;
 import com.spring.security.entity.AppUser;
 import com.spring.security.entity.Authority;
 import com.spring.security.services.AuthorityService;
+import com.spring.security.services.MailServices;
 import com.spring.security.services.UserServices;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -12,14 +15,19 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Component
+@Log4j2
 public class StartUp implements CommandLineRunner {
 
     private final UserServices userServices;
     private final AuthorityService authorityService;
+    private final MailServices mailServices;
 
 
     @Override
     public void run(String... args) throws Exception {
+
+//        mailServices.sendMail(new Mail("verify your account", "mail@gmail.com", "CLick Here"));
+//        log.info("Sent Succsesfully");
         if (false) {
             List<Authority> authorities = authorityService.findAll();
             if (userServices.findAll().isEmpty()) {
