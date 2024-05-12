@@ -1,6 +1,5 @@
 package com.spring.security.services;
 
-import com.spring.security.dto.Mail;
 import com.spring.security.entity.AppUser;
 import com.spring.security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,7 @@ public class UserServices {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final MailServices mailServices;
+
 
 
     public List<AppUser> findAll() {
@@ -28,9 +27,6 @@ public class UserServices {
     }
 
     public void save(AppUser user) {
-        Mail mail = new Mail(user.getEmail());
-        mailServices.sendMail(mail);
-        user.setVerifyCode(mail.getVerifyCode());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         this.userRepository.save(user);
     }
@@ -39,18 +35,6 @@ public class UserServices {
         userRepository.save(user);
     }
 
-    public void verify(String verify, Long id) {
-        AppUser user = findById(id).get();
-        if (verify.equals(user.getVerifyCode())) {
-            user.setIsVerify(1);
-            update(user);
-            user.setVerifyCode("0");
-            update(user);
-        }
-        else
-            throw new RuntimeException("invalid code");
-
-    }
 
     public void activeAccount(Long id){
         AppUser user = findById(id).get();

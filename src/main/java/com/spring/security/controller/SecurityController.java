@@ -35,11 +35,6 @@ public class SecurityController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PostMapping("/verify")
-    public ResponseEntity<?> verify(@RequestParam String verify, @RequestParam Long id) {
-        userServices.verify(verify, id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
     @PostMapping("/active")
     public ResponseEntity<?> active(@RequestParam Long id) {

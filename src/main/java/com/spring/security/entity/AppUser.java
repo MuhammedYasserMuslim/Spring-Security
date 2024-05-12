@@ -32,7 +32,6 @@ public class AppUser {
     private String lastName;
     private String email;
 
-    private String verifyCode;
 
 
     @JoinTable(
